@@ -25,11 +25,11 @@ Route.group(()=>{
 }).prefix('api')
 
 Route.group(()=>{
-  Route.get('users','UserController.users')
-  Route.post('login', 'UserController.login')
-  Route.post('users','UserController.addUser')
+  Route.get('users','UserController.users').middleware('auth')
+ // Route.post('login', 'UserController.login')
+  //Route.post('users','UserController.addUser')
   Route.get('users/:id','UserController.showUser')
-  Route.put('users/:id','UserController.updateUser')
+  //Route.put('users/:id','UserController.updateUser')
   Route.delete('users/:id','UserController.deleteUser')
 }).prefix('api')
 
@@ -37,6 +37,10 @@ Route.group(()=>{
   Route.post('login','AuthController.login')
   Route.post('register','AuthController.register')
 }).prefix('auth')
+
+Route.group(()=>{
+  Route.put('password', 'UpdateUserInfoController.changePassword').middleware('auth')
+}).prefix('update')
 
 
 
