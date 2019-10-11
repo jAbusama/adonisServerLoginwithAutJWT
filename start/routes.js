@@ -36,10 +36,14 @@ Route.group(()=>{
 Route.group(()=>{
   Route.post('login','AuthController.login')
   Route.post('register','AuthController.register')
+  Route.post('verify', 'AuthController.verify')
+  Route.post('verify/email','AuthController.resendVerification')
 }).prefix('auth')
 
 Route.group(()=>{
   Route.put('password', 'UpdateUserInfoController.changePassword').middleware('auth')
+  Route.get('forgotpassword', 'ForgotPasswordController.forgotPassword')
+  
 }).prefix('update')
 
 

@@ -8,7 +8,7 @@ class UserController {
   async users({response, auth, params}){
     try{
       let user = await User.all()
-      return response.status(200).json({"status": true, "data": user})
+      return response.json({"status": true, "data": user})
     }
     catch(error){
       response.json({"status":false})
@@ -18,9 +18,9 @@ class UserController {
   async showUser({response,params}){
     let user = await User.find(params.id)
     if(!user){
-      return response.status(404).send({"status": false, "message": 'user not exist'})
+      return response.json({"status": false, "message": 'user not exist'})
     }
-    return response.status(200).send({status: true, data: user})
+    return response.json({status: true, data: user})
   }
 
   // async login({request, response, auth}){
@@ -67,13 +67,13 @@ class UserController {
   //   }
   // }
 
-  async detete({request, response, auth}){
-    try{
+  // async detete({request, response, auth}){
+  //   try{
 
-    }
-    catch(e){
-      return response.status(404).json({"status": false, "error": e})
-    }
-  }
+  //   }
+  //   catch(e){
+  //     return response.status(404).json({"status": false, "error": e})
+  //   }
+  // }
 }
 module.exports = UserController
