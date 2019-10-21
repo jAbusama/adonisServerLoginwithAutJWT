@@ -11,8 +11,8 @@ class ForgotPasswordController {
     //try{
       const {email}= request.only(['email'])
       const user = await User.findBy('email', email)
-      const token = await crypto.randomBytes(10).toString('hex')
-      user.token_created_at = new Date()
+      const verificationCode = await crypto.randomBytes(10).toString('hex')
+      user.verificationCode_created_at = new Date()
       user.token = token
 
       await user.save()

@@ -2,27 +2,42 @@
 
 const Database = use('Database')
 const User = use('App/Models/User')
+const UserTest = use('App/Models/UserTest')
 const Hash = use('Hash')
 class UserController {
 
   async users({response, auth, params}){
     try{
       let user = await User.all()
-      return response.json({"status": true, "data": user})
+      return response.status(200).json({"status": true, "data": user})
     }
     catch(error){
-      response.json({"status":false})
+      response.status(404).json({"status":false})
     }
   }
 
-  async showUser({response,params}){
-    let user = await User.find(params.id)
-    if(!user){
+  async showUser({request, response, params}){
+    const {email} = await request.only(['email'])
+    let user = await User.findBy('email', email)
+    if(!user)
       return response.json({"status": false, "message": 'user not exist'})
-    }
     return response.json({status: true, data: user})
   }
 
+  async userRegistration({ request, response, auth }){
+    const { name, company } = await request.all()
+
+    await UserTest.create({
+      name,
+      company
+    })
+    return response.status(200).json({status: true, message: "Successfully register"})
+  }
+
+  async show({ response }){
+    const user = await UserTest.all()
+    return response.status(200).json({user})
+  }
   // async login({request, response, auth}){
 
   //   const {email, password} = await request.only(['email', 'password'])

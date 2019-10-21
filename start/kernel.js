@@ -39,7 +39,9 @@ const globalMiddleware = [
 */
 const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
-  guest: 'Adonis/Middleware/AllowGuestOnly'
+  guest: 'Adonis/Middleware/AllowGuestOnly',
+  verifyPassword: 'App/Middleware/VerifyPassword',
+  userVerification: 'App/Middleware/UserVerification'
 }
 
 /*
@@ -61,3 +63,4 @@ Server
   .registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
   .use(serverMiddleware)
+  

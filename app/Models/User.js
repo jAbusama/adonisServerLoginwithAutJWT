@@ -13,7 +13,7 @@ class User extends Model {
   // }
 
   static get hidden(){
-    return ['password']
+    return ['password','_id','created_at','updated_at','verifyDate','isVerified']
   }
   
 }

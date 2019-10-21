@@ -28,20 +28,22 @@ Route.group(()=>{
   Route.get('users','UserController.users').middleware('auth')
  // Route.post('login', 'UserController.login')
   //Route.post('users','UserController.addUser')
-  Route.get('users/:id','UserController.showUser')
+  Route.get('getUsers','UserController.showUser')
   //Route.put('users/:id','UserController.updateUser')
   Route.delete('users/:id','UserController.deleteUser')
+  Route.post('register', 'UserController.userRegistration')
+  Route.get('show', 'UserController.show')
 }).prefix('api')
 
 Route.group(()=>{
-  Route.post('login','AuthController.login')
-  Route.post('register','AuthController.register')
-  Route.post('verify', 'AuthController.verify')
+  Route.post('login','AuthController.login').middleware('verifyPassword')
+  Route.post('register','AuthController.register').validator('User')
+  Route.post('verify', 'AuthController.verify').middleware('userVerification')
   Route.post('verify/email','AuthController.resendVerification')
 }).prefix('auth')
 
 Route.group(()=>{
-  Route.put('password', 'UpdateUserInfoController.changePassword').middleware('auth')
+  Route.put('user', 'UpdateUserInfoController.update').middleware('auth')
   Route.get('forgotpassword', 'ForgotPasswordController.forgotPassword')
   
 }).prefix('update')
